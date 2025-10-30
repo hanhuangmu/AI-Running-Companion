@@ -1,0 +1,436 @@
+/**
+ * Figma风格哈特心脏增强样式
+ * 6个等级 (Lv.0-5) + 双节拍心跳动画
+ */
+
+/* ============================================
+   双节拍心跳动画 (模拟真实"咚-咚"节奏)
+   ============================================ */
+
+/* Lv.5 - 元气爆棚：快速有力的双跳 */
+@keyframes heartbeat-lv5 {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.18); }      /* 第一跳 */
+  20% { transform: scale(1); }
+  32% { transform: scale(1.12); }      /* 第二跳 */
+  40% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* Lv.4 - 活力充沛：稳健的双跳 */
+@keyframes heartbeat-lv4 {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  20% { transform: scale(1); }
+  32% { transform: scale(1.10); }
+  40% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* Lv.3 - 基础平稳：平稳的双跳 */
+@keyframes heartbeat-lv3 {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  20% { transform: scale(1); }
+  32% { transform: scale(1.08); }
+  40% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* Lv.2 - 元气不足：微弱的双跳 */
+@keyframes heartbeat-lv2 {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.08); }
+  20% { transform: scale(1); }
+  32% { transform: scale(1.05); }
+  40% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* Lv.1 - 垂头丧气：极弱的双跳 */
+@keyframes heartbeat-lv1 {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.04); }
+  20% { transform: scale(1); }
+  32% { transform: scale(1.02); }
+  40% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* Lv.0 - 病变濒危：几乎看不见的双跳 */
+@keyframes heartbeat-lv0 {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.02); }
+  20% { transform: scale(1); }
+  32% { transform: scale(1.01); }
+  40% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* ============================================
+   心脏图标状态样式
+   ============================================ */
+
+/* Lv.5 - 元气爆棚 (90-100) */
+.heart-icon[data-state="excellent"],
+.heart-icon[data-level="5"] {
+  animation: heartbeat-lv5 0.4s ease-in-out infinite;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 8px 24px rgba(255, 45, 85, 0.6));
+}
+
+.heart-icon[data-state="excellent"]::before,
+.heart-icon[data-level="5"]::before {
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+  animation: heartGlow-lv5 2.5s ease-in-out infinite;
+}
+
+/* Lv.4 - 活力充沛 (70-89) */
+.heart-icon[data-state="energetic"],
+.heart-icon[data-level="4"] {
+  animation: heartbeat-lv4 0.4s ease-in-out infinite;
+  animation-delay: 1.2s;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 6px 20px rgba(255, 59, 48, 0.5));
+}
+
+.heart-icon[data-state="energetic"]::before,
+.heart-icon[data-level="4"]::before {
+  background: radial-gradient(circle, rgba(255, 143, 163, 0.3) 0%, transparent 70%);
+  animation: heartGlow-lv4 2.5s ease-in-out infinite;
+}
+
+/* Lv.3 - 基础平稳 (40-69) */
+.heart-icon[data-state="normal"],
+.heart-icon[data-level="3"] {
+  animation: heartbeat-lv3 0.4s ease-in-out infinite;
+  animation-delay: 1.8s;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 4px 16px rgba(199, 35, 58, 0.4));
+}
+
+.heart-icon[data-state="normal"]::before,
+.heart-icon[data-level="3"]::before {
+  background: radial-gradient(circle, rgba(255, 107, 139, 0.15) 0%, transparent 70%);
+  animation: heartGlow-lv3 2.5s ease-in-out infinite;
+}
+
+/* Lv.2 - 元气不足 (20-39) */
+.heart-icon[data-state="tired"],
+.heart-icon[data-level="2"] {
+  animation: heartbeat-lv2 0.4s ease-in-out infinite;
+  animation-delay: 2.5s;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 2px 12px rgba(139, 26, 26, 0.3));
+  opacity: 0.85;
+}
+
+.heart-icon[data-state="tired"]::before,
+.heart-icon[data-level="2"]::before {
+  display: none; /* 无光晕 */
+}
+
+/* Lv.1 - 垂头丧气 (1-19) */
+.heart-icon[data-state="depressed"],
+.heart-icon[data-level="1"] {
+  animation: heartbeat-lv1 0.4s ease-in-out infinite;
+  animation-delay: 5.0s;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 1px 8px rgba(74, 36, 36, 0.2));
+  opacity: 0.7;
+}
+
+.heart-icon[data-state="depressed"]::before,
+.heart-icon[data-level="1"]::before {
+  display: none;
+}
+
+/* Lv.0 - 病变濒危 (0) */
+.heart-icon[data-state="dead"],
+.heart-icon[data-level="0"] {
+  animation: heartbeat-lv0 0.4s ease-in-out infinite;
+  animation-delay: 10.0s;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 1px 4px rgba(44, 44, 44, 0.1));
+  opacity: 0.6;
+}
+
+.heart-icon[data-state="dead"]::before,
+.heart-icon[data-level="0"]::before {
+  display: none;
+}
+
+/* ============================================
+   光晕脉动动画
+   ============================================ */
+
+@keyframes heartGlow-lv5 {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.8);
+  }
+}
+
+@keyframes heartGlow-lv4 {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.6);
+  }
+}
+
+@keyframes heartGlow-lv3 {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  50% {
+    opacity: 0.25;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+/* ============================================
+   装饰元素样式
+   ============================================ */
+
+/* 裂纹（Lv.0-2） */
+.hart-cracks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hart-cracks path {
+  stroke: rgba(0, 0, 0, 0.4);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* 乌云（Lv.0-1） */
+.hart-cloud {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 40px;
+  background: rgba(60, 60, 60, 0.7);
+  border-radius: 50%;
+  box-shadow:
+    -20px 0 0 rgba(60, 60, 60, 0.7),
+    20px 0 0 rgba(60, 60, 60, 0.7);
+  animation: cloudFloat 3s ease-in-out infinite;
+}
+
+@keyframes cloudFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+}
+
+/* 雨滴（Lv.1） */
+.hart-raindrop {
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background: linear-gradient(180deg, rgba(100, 150, 200, 0.6), transparent);
+  border-radius: 50%;
+  animation: rainFall 0.8s linear infinite;
+}
+
+@keyframes rainFall {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(40px); opacity: 0; }
+}
+
+/* 闪电（Lv.0） */
+.hart-lightning {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 30px;
+  background: linear-gradient(180deg, #FFD700, #FFA500, transparent);
+  clip-path: polygon(50% 0%, 65% 40%, 50% 40%, 60% 100%, 35% 60%, 50% 60%);
+  animation: lightning 3s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes lightning {
+  0%, 90%, 100% { opacity: 0; }
+  92%, 94% { opacity: 1; }
+}
+
+/* 音符（Lv.5） */
+.hart-music-note {
+  position: absolute;
+  font-size: 18px;
+  animation: noteFloat 3s ease-in-out infinite;
+  opacity: 0.8;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.5));
+}
+
+@keyframes noteFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+.hart-music-note:nth-child(1) {
+  top: 20px;
+  left: -20px;
+  animation-delay: 0s;
+}
+
+.hart-music-note:nth-child(2) {
+  top: 30px;
+  right: -20px;
+  animation-delay: 0.8s;
+}
+
+.hart-music-note:nth-child(3) {
+  top: 50px;
+  left: -15px;
+  animation-delay: 1.6s;
+}
+
+/* 光点（Lv.4-5） */
+.hart-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 1), transparent);
+  border-radius: 50%;
+  animation: sparkle 2s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* ============================================
+   元气值进度条6级颜色
+   ============================================ */
+
+/* Lv.5 (90-100) */
+.energy-bar-fill[data-level="5"],
+.energy-bar-fill[data-level="excellent"] {
+  background: linear-gradient(90deg, #FF2D55, #FF6B8B);
+  box-shadow: 0 0 20px rgba(255, 45, 85, 0.6);
+}
+
+/* Lv.4 (70-89) */
+.energy-bar-fill[data-level="4"],
+.energy-bar-fill[data-level="energetic"] {
+  background: linear-gradient(90deg, #FF3B30, #FF6B8B);
+  box-shadow: 0 0 16px rgba(255, 59, 48, 0.5);
+}
+
+/* Lv.3 (40-69) */
+.energy-bar-fill[data-level="3"],
+.energy-bar-fill[data-level="normal"] {
+  background: linear-gradient(90deg, #C7233A, #A51D2D);
+  box-shadow: 0 0 12px rgba(199, 35, 58, 0.4);
+}
+
+/* Lv.2 (20-39) */
+.energy-bar-fill[data-level="2"],
+.energy-bar-fill[data-level="tired"] {
+  background: linear-gradient(90deg, #8B1A1A, #6A1515);
+  box-shadow: 0 0 8px rgba(139, 26, 26, 0.3);
+}
+
+/* Lv.1 (1-19) */
+.energy-bar-fill[data-level="1"],
+.energy-bar-fill[data-level="depressed"] {
+  background: linear-gradient(90deg, #4A2424, #3A1A1A);
+  box-shadow: 0 0 4px rgba(74, 36, 36, 0.2);
+}
+
+/* Lv.0 (0) */
+.energy-bar-fill[data-level="0"],
+.energy-bar-fill[data-level="dead"] {
+  background: linear-gradient(90deg, #2C2C2C, #1A1A1A);
+  box-shadow: none;
+}
+
+/* ============================================
+   元气值数值显示颜色
+   ============================================ */
+
+.energy-value[data-level="5"],
+.energy-value[data-level="excellent"] {
+  color: #FF2D55;
+  text-shadow: 0 0 10px rgba(255, 45, 85, 0.6);
+}
+
+.energy-value[data-level="4"],
+.energy-value[data-level="energetic"] {
+  color: #FF3B30;
+  text-shadow: 0 0 8px rgba(255, 59, 48, 0.5);
+}
+
+.energy-value[data-level="3"],
+.energy-value[data-level="normal"] {
+  color: #C7233A;
+  text-shadow: 0 0 6px rgba(199, 35, 58, 0.4);
+}
+
+.energy-value[data-level="2"],
+.energy-value[data-level="tired"] {
+  color: #8B1A1A;
+  text-shadow: none;
+}
+
+.energy-value[data-level="1"],
+.energy-value[data-level="depressed"] {
+  color: #4A2424;
+  text-shadow: none;
+}
+
+.energy-value[data-level="0"],
+.energy-value[data-level="dead"] {
+  color: #2C2C2C;
+  text-shadow: none;
+}
+
+/* ============================================
+   浮动动画（Lv.4-5）
+   ============================================ */
+
+.heart-icon[data-level="5"],
+.heart-icon[data-level="4"],
+.heart-icon[data-state="excellent"],
+.heart-icon[data-state="energetic"] {
+  animation: heartbeat-float 0.4s ease-in-out infinite,
+             float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}

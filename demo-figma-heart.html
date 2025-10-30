@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figma哈特心脏演示 - 6个等级 + 双节拍</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000000;
+      color: #FFFFFF;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #FF6B8B;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 40px;
+    }
+
+    .demo-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .level-card {
+      background: rgba(30, 30, 30, 0.6);
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .level-title {
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 8px;
+    }
+
+    .level-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .level-range {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .heart-container {
+      position: relative;
+      width: 120px;
+      height: 108px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .heart-icon {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .heart-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .level-message {
+      font-size: 14px;
+      color: #FF7A59;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    .controls {
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .control-title {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #FF6B8B;
+    }
+
+    .slider-group {
+      margin-bottom: 20px;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #FF6B8B;
+      cursor: pointer;
+    }
+
+    .current-state {
+      background: rgba(255, 107, 139, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 107, 139, 0.3);
+    }
+
+    .state-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .state-label {
+      color: #999;
+    }
+
+    .state-value {
+      color: #FFF;
+      font-weight: 600;
+    }
+
+    /* 引入Figma心脏样式 */
+  </style>
+  <link rel="stylesheet" href="public/styles-figma-heart.css">
+</head>
+<body>
+  <h1>🫀 Figma哈特心脏系统演示</h1>
+  <p class="subtitle">6个等级 (Lv.0-5) + 双节拍心跳动画 + 装饰元素</p>
+
+  <div class="demo-container">
+    <!-- Lv.5 -->
+    <div class="level-card">
+      <div class="level-title">Lv.5</div>
+      <div class="level-name" style="color: #FF2D55;">元气爆棚</div>
+      <div class="level-range">90-100分</div>
+      <div class="heart-container">
+        <div class="heart-icon" data-level="5">
+          <svg class="heart-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad5" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FF2D55;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#FF6B8B;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad5)"
+              d="M50,85 C50,85 15,60 15,40 C15,25 25,15 35,15 C42,15 48,20 50,25 C52,20 58,15 65,15 C75,15 85,25 85,40 C85,60 50,85 50,85 Z"/>
+          </svg>
+          <!-- 音符装饰 -->
+          <span class="hart-music-note" style="position: absolute; top: 20px; left: -20px;">♪</span>
+          <span class="hart-music-note" style="position: absolute; top: 30px; right: -20px;">♫</span>
+          <span class="hart-music-note" style="position: absolute; top: 50px; left: -15px;">♬</span>
+        </div>
+      </div>
+      <div class="level-message">元气爆棚！完美状态！</div>
+    </div>
+
+    <!-- Lv.4 -->
+    <div class="level-card">
+      <div class="level-title">Lv.4</div>
+      <div class="level-name" style="color: #FF3B30;">活力充沛</div>
+      <div class="level-range">70-89分</div>
+      <div class="heart-container">
+        <div class="heart-icon" data-level="4">
+          <svg class="heart-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FF3B30;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#FF6B8B;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad4)"
+              d="M50,85 C50,85 15,60 15,40 C15,25 25,15 35,15 C42,15 48,20 50,25 C52,20 58,15 65,15 C75,15 85,25 85,40 C85,60 50,85 50,85 Z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="level-message" style="color: #FF3B30;">活力充沛，状态很好！</div>
+    </div>
+
+    <!-- Lv.3 -->
+    <div class="level-card">
+      <div class="level-title">Lv.3</div>
+      <div class="level-name" style="color: #C7233A;">基础平稳</div>
+      <div class="level-range">40-69分</div>
+      <div class="heart-container">
+        <div class="heart-icon" data-level="3">
+          <svg class="heart-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#C7233A;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#A51D2D;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad3)"
+              d="M50,85 C50,85 15,60 15,40 C15,25 25,15 35,15 C42,15 48,20 50,25 C52,20 58,15 65,15 C75,15 85,25 85,40 C85,60 50,85 50,85 Z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="level-message" style="color: #C7233A;">基础平稳，继续加油</div>
+    </div>
+
+    <!-- Lv.2 -->
+    <div class="level-card">
+      <div class="level-title">Lv.2</div>
+      <div class="level-name" style="color: #8B1A1A;">元气不足</div>
+      <div class="level-range">20-39分</div>
+      <div class="heart-container">
+        <div class="heart-icon" data-level="2">
+          <svg class="heart-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#8B1A1A;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#6A1515;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad2)"
+              d="M50,85 C50,85 15,60 15,40 C15,25 25,15 35,15 C42,15 48,20 50,25 C52,20 58,15 65,15 C75,15 85,25 85,40 C85,60 50,85 50,85 Z"/>
+            <!-- 裂纹 -->
+            <svg class="hart-cracks">
+              <path d="M 55,30 Q 58,45 60,60" />
+            </svg>
+          </svg>
+        </div>
+      </div>
+      <div class="level-message" style="color: #8B1A1A;">元气不足，有点累</div>
+    </div>
+
+    <!-- Lv.1 -->
+    <div class="level-card">
+      <div class="level-title">Lv.1</div>
+      <div class="level-name" style="color: #4A2424;">垂头丧气</div>
+      <div class="level-range">1-19分</div>
+      <div class="heart-container">
+        <div class="heart-icon" data-level="1">
+          <svg class="heart-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#4A2424;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#3A1A1A;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad1)"
+              d="M50,85 C50,85 15,60 15,40 C15,25 25,15 35,15 C42,15 48,20 50,25 C52,20 58,15 65,15 C75,15 85,25 85,40 C85,60 50,85 50,85 Z"/>
+          </svg>
+          <!-- 乌云和雨滴 -->
+          <div class="hart-cloud"></div>
+          <div class="hart-raindrop" style="left: 30%; animation-delay: 0s;"></div>
+          <div class="hart-raindrop" style="left: 50%; animation-delay: 0.3s;"></div>
+          <div class="hart-raindrop" style="left: 70%; animation-delay: 0.6s;"></div>
+        </div>
+      </div>
+      <div class="level-message" style="color: #4A2424;">垂头丧气...需要活力</div>
+    </div>
+
+    <!-- Lv.0 -->
+    <div class="level-card">
+      <div class="level-title">Lv.0</div>
+      <div class="level-name" style="color: #2C2C2C;">病变濒危</div>
+      <div class="level-range">0分</div>
+      <div class="heart-container">
+        <div class="heart-icon" data-level="0">
+          <svg class="heart-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad0" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#2C2C2C;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#1A1A1A;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad0)"
+              d="M50,85 C50,85 15,60 15,40 C15,25 25,15 35,15 C42,15 48,20 50,25 C52,20 58,15 65,15 C75,15 85,25 85,40 C85,60 50,85 50,85 Z"/>
+          </svg>
+          <!-- 厚重乌云和闪电 -->
+          <div class="hart-cloud" style="width: 100px; height: 50px; background: rgba(40, 40, 40, 0.9);"></div>
+          <div class="hart-lightning"></div>
+        </div>
+      </div>
+      <div class="level-message" style="color: #666;">病变濒危！马上运动！</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="control-title">🎮 交互控制</div>
+
+    <div class="slider-group">
+      <div class="slider-label">
+        <span class="slider-label-text">元气值</span>
+        <span class="slider-value" id="energyValue">100</span>
+      </div>
+      <input type="range" id="energySlider" min="0" max="100" value="100" />
+    </div>
+
+    <div class="current-state">
+      <div class="state-info">
+        <span class="state-label">当前等级</span>
+        <span class="state-value" id="currentLevel">Lv.5</span>
+      </div>
+      <div class="state-info">
+        <span class="state-label">状态名称</span>
+        <span class="state-value" id="currentName">元气爆棚</span>
+      </div>
+      <div class="state-info">
+        <span class="state-label">激励消息</span>
+        <span class="state-value" id="currentMessage">元气爆棚！完美状态！</span>
+      </div>
+      <div class="state-info">
+        <span class="state-label">心跳间隔</span>
+        <span class="state-value" id="currentBeat">0.8秒</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="public/energy-system-figma.js"></script>
+  <script>
+    // 初始化Figma元气值系统
+    const energySystem = new EnergySystemFigma();
+
+    // 交互控制
+    const slider = document.getElementById('energySlider');
+    const energyValue = document.getElementById('energyValue');
+    const currentLevel = document.getElementById('currentLevel');
+    const currentName = document.getElementById('currentName');
+    const currentMessage = document.getElementById('currentMessage');
+    const currentBeat = document.getElementById('currentBeat');
+
+    slider.addEventListener('input', (e) => {
+      const value = parseInt(e.target.value);
+      energySystem.energy = value;
+
+      const status = energySystem.getDetailedStatus();
+
+      energyValue.textContent = value;
+      currentLevel.textContent = `Lv.${status.level}`;
+      currentName.textContent = status.name;
+      currentMessage.textContent = status.message;
+      currentBeat.textContent = `${status.beatSpeed}秒`;
+
+      // 更新颜色
+      currentLevel.style.color = status.color;
+      currentName.style.color = status.color;
+      currentMessage.style.color = status.color;
+    });
+
+    console.log('✅ Figma哈特心脏演示已加载');
+    console.log('📊 当前元气值系统状态:', energySystem.getDetailedStatus());
+  </script>
+</body>
+</html>
