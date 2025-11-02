@@ -375,6 +375,63 @@ button#clearRun, button#clearChat {
 .energy-value[data-level="good"] { color: #FF3B30; }
 .energy-value[data-level="excellent"] { color: #FF2D55; }
 
+/* 元气值测试控制器 */
+.energy-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(19, 24, 32, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 300px;
+  backdrop-filter: blur(10px);
+}
+
+.control-row {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.control-row label {
+  margin-right: 10px;
+  min-width: 120px;
+  color: var(--muted);
+}
+
+.control-row input[type="range"] {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.test-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.test-button {
+  padding: 5px 10px;
+  background: var(--accent);
+  color: #0c0f12;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.test-button:hover {
+  background: var(--accent-2);
+}
+
+#status-name, #energy-message {
+  font-weight: bold;
+  color: var(--accent);
+}
+
 /* 元气值进度条颜色 - 6个等级 */
 .energy-bar-fill[data-level="dying"] {
   background: linear-gradient(90deg, #2C2C2C, #3A3A3A);

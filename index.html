@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AI Running Companion</title>
     <link rel="stylesheet" href="public/styles.css" />
+    <link rel="stylesheet" href="public/styles-figma-heart.css" />
     <!-- 必须在 AMap JS 脚本之前设置安全配置 -->
     <script>
       window._AMapSecurityConfig = {
@@ -219,6 +220,35 @@
       </small>
     </footer>
 
+    <!-- 元气值测试控制器 -->
+     <div class="energy-controls">
+      <div class="control-row">
+        <label for="energy-slider">元气值 (0-100):</label>
+        <input type="range" id="energy-slider" min="0" max="100" value="100">
+        <span class="energy-value">100</span>
+      </div>
+      <div class="control-row">
+        <span>当前等级: </span>
+        <span id="current-level">Lv.5</span> - 
+        <span id="status-name">元气爆棚</span>
+      </div>
+      <div class="control-row">
+        <span>状态消息: </span>
+        <span id="energy-message">元气爆棚！完美状态！</span>
+      </div>
+      <div class="control-row">
+        <span>心跳间隔: </span>
+        <span id="heart-beat-interval">0.8s</span>
+      </div>
+      <div class="control-row test-buttons">
+        <button class="test-button" data-action="run">跑步(良好)</button>
+        <button class="test-button" data-action="sprint">冲刺(优秀)</button>
+        <button class="test-button" data-action="walk">慢走(不佳)</button>
+        <button class="test-button" data-action="rest">休息</button>
+        <button class="test-button" data-action="reset">重置</button>
+      </div>
+    </div>
+    
     <!-- Scripts -->
     <!-- AI 目标建议对话框 -->
     <div id="aiGoalModal" class="modal" style="display:none;">
@@ -252,10 +282,112 @@
       </div>
     </div>
 
-    <script src="public/energy-system.js"></script>
+    <script src="public/energy-system-figma.js"></script>
     <script src="public/analysis.js"></script>
     <script src="public/medalSystem.js"></script>
     <script src="public/shareSystem.js"></script>
+    <script>
+      // 确保EnergySystemFigma类全局可用
+      window.EnergySystem = EnergySystemFigma;
+    </script>
     <script src="public/app.js"></script>
+     <script>
+     // 全局变量
+     window.energySystem = null;
+     
+     // 页面加载完成后初始化
+     document.addEventListener('DOMContentLoaded', function() {
+         // 初始化元气值系统
+         try {
+           console.log("初始化元气值系统");
+           window.energySystem = new EnergySystemFigma();
+         } catch (error) {
+           console.error("初始化元气值系统失败:", error);
+         }
+        
+        // 测试用：添加元气值控制器
+          const slider = document.getElementById('energy-slider');
+          const levelDisplay = document.getElementById('current-level');
+          const statusName = document.getElementById('status-name');
+          const energyMessage = document.getElementById('energy-message');
+          const heartBeatInterval = document.getElementById('heart-beat-interval');
+          
+          if (slider && levelDisplay) {
+            slider.addEventListener('input', () => {
+              const value = parseInt(slider.value);
+              window.energySystem.energy = value;
+              
+              // 获取当前状态
+              const state = window.energySystem.getCurrentHeartState();
+              
+              // 更新显示
+              levelDisplay.textContent = `Lv.${state.level}`;
+              if (statusName) statusName.textContent = state.name;
+              if (energyMessage) energyMessage.textContent = state.message;
+              if (heartBeatInterval) heartBeatInterval.textContent = `${state.beatSpeed}s`;
+              
+              // 更新心脏状态
+              window.energySystem.updateHeartState();
+            });
+          }
+        
+        // 添加测试按钮事件
+          const testButtons = document.querySelectorAll('.test-button');
+          testButtons.forEach(button => {
+            button.addEventListener('click', function() {
+              const action = this.dataset.action;
+              
+              switch(action) {
+                case 'run':
+                  simulateActivity('running', 'good');
+                  break;
+                case 'sprint':
+                  simulateActivity('running', 'excellent');
+                  break;
+                case 'walk':
+                  simulateActivity('running', 'bad');
+                  break;
+                case 'rest':
+                  simulateActivity('resting');
+                  break;
+                case 'reset':
+                  window.energySystem.energy = 100;
+                  window.energySystem.updateHeartState();
+                  if (slider) slider.value = 100;
+                  break;
+              }
+            });
+          });
+        });
+        
+        // 模拟活动
+        function simulateActivity(activity, paceQuality) {
+          if (!window.energySystem) return;
+          
+          // 更新元气值
+          window.energySystem.updateEnergy({
+            activity: activity,
+            paceQuality: paceQuality
+          });
+          
+          // 更新滑块
+          const slider = document.getElementById('energy-slider');
+          if (slider) {
+            slider.value = Math.round(window.energySystem.energy);
+          }
+          
+          // 获取当前状态
+          const state = window.energySystem.getCurrentHeartState();
+          
+          // 更新显示
+          const levelDisplay = document.getElementById('current-level');
+          const statusName = document.getElementById('status-name');
+          const energyMessage = document.getElementById('energy-message');
+          
+          if (levelDisplay) levelDisplay.textContent = `Lv.${state.level}`;
+          if (statusName) statusName.textContent = state.name;
+          if (energyMessage) energyMessage.textContent = state.message;
+        }
+    </script>
   </body>
 </html>

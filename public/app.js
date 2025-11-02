@@ -1101,7 +1101,7 @@
 // ========================================
 
 // 初始化元气值系统
-const energySystem = new EnergySystem();
+const energySystem = new EnergySystemFigma();
 
 // Helpers to access app state/speak safely from outside IIFE
 const getApp = () => (typeof window !== 'undefined' ? (window.App || null) : null);
@@ -1371,23 +1371,16 @@ function updateLaunchTime() {
 function updateLaunchEnergy() {
   if (!energyPercentEl || !launchHeartIcon) return;
 
-  const status = energySystem.getDetailedStatus();
-  energyPercentEl.textContent = status.percent;
+  const status = window.energySystem?.getDetailedStatus() || {state: 'normal', opacity: 1.0};
+  energyPercentEl.textContent = window.energySystem ? `${Math.round(window.energySystem.energy)}%` : "100%";
 
   // 更新启动屏心脏状态
   launchHeartIcon.setAttribute('data-state', status.state);
   launchHeartIcon.style.opacity = status.opacity || 1.0;
-
-  // 更新启动屏心脏渐变色
-  const launchHeartGradStart = document.getElementById('launchHeartGradStart');
-  const launchHeartGradEnd = document.getElementById('launchHeartGradEnd');
-
-  if (launchHeartGradStart && launchHeartGradEnd) {
-    const gradColors = status.gradient.match(/#[0-9A-Fa-f]{6}/g);
-    if (gradColors && gradColors.length >= 2) {
-      launchHeartGradStart.style.stopColor = gradColors[0];
-      launchHeartGradEnd.style.stopColor = gradColors[1];
-    }
+  
+  // 设置心脏颜色
+  if (status.color) {
+    launchHeartIcon.style.color = status.color;
   }
 }
 
@@ -1473,12 +1466,28 @@ let launchScreenTimer = null;
 if (launchScreen && launchScreen.style.display !== 'none') {
   // 初始更新
   updateLaunchTime();
-  updateLaunchEnergy();
+  
+  // 等待energySystem初始化完成后再更新
+  setTimeout(() => {
+    try {
+      if (window.energySystem) {
+        updateLaunchEnergy();
+      }
+    } catch (e) {
+      console.error("更新启动屏元气值失败:", e);
+    }
+  }, 500);
 
   // 定时更新时间和元气值
   launchScreenTimer = setInterval(() => {
     updateLaunchTime();
-    updateLaunchEnergy();
+    try {
+      if (window.energySystem) {
+        updateLaunchEnergy();
+      }
+    } catch (e) {
+      console.error("更新启动屏元气值失败:", e);
+    }
   }, 1000);
 }
 
